@@ -1,0 +1,60 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+  name: "jewels";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  /* Base — warm ivory / cream */
+  --color-base-100: oklch(98.5% 0.005 85);
+  --color-base-200: oklch(95% 0.008 80);
+  --color-base-300: oklch(88% 0.01 80);
+  --color-base-content: oklch(17% 0.005 260);
+
+  /* Primary — charcoal black (luxury dark) */
+  --color-primary: oklch(18% 0.01 260);
+  --color-primary-content: oklch(98% 0.005 85);
+
+  /* Secondary — champagne gold */
+  --color-secondary: oklch(72% 0.11 75);
+  --color-secondary-content: oklch(18% 0.01 260);
+
+  /* Accent — warm rose gold */
+  --color-accent: oklch(60% 0.08 50);
+  --color-accent-content: oklch(100% 0 0);
+
+  /* Neutral — deep black */
+  --color-neutral: oklch(15% 0.005 260);
+  --color-neutral-content: oklch(98% 0.005 85);
+
+  /* State colors */
+  --color-info: oklch(56% 0.155 230);
+  --color-info-content: oklch(100% 0 0);
+  --color-success: oklch(58% 0.16 150);
+  --color-success-content: oklch(100% 0 0);
+  --color-warning: oklch(80% 0.18 85);
+  --color-warning-content: oklch(17% 0.005 260);
+  --color-error: oklch(57% 0.22 27);
+  --color-error-content: oklch(100% 0 0);
+
+  /* Elegant: minimal radius, no animations */
+  --radius-selector: 0.25rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.5rem;
+
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* Modal backdrop */
+.modal-backdrop {
+  background-color: oklch(0% 0 0 / 45%);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
