@@ -31,6 +31,7 @@ ENV NITRO_HOST=0.0.0.0
 COPY --from=builder /app/.output ./.output
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
 COPY --from=builder /app/package.json ./package.json
 
 # Install only production deps needed at runtime (pg adapter, prisma engine, etc.)
