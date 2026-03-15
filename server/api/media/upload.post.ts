@@ -29,10 +29,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
-  const uploadBase = import.meta.dev
-    ? join(process.cwd(), 'public')
-    : join(process.cwd(), '.output', 'public')
-  const dir = join(uploadBase, 'uploads', 'media')
+  const dir = join(process.cwd(), 'data', 'uploads', 'media')
   await mkdir(dir, { recursive: true })
   const filepath = join(dir, filename)
   await writeFile(filepath, file.data)

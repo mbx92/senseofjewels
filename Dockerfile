@@ -41,5 +41,8 @@ COPY --from=builder /app/package-lock.json* ./
 
 EXPOSE 3030
 
+# Persistent volume for uploaded files
+VOLUME ["/app/data/uploads"]
+
 # Run DB migrations, seed, then start the server
 CMD ["sh", "-c", "npx prisma migrate deploy && npx tsx prisma/seed.ts && node .output/server/index.mjs"]

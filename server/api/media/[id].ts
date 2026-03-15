@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
     // Delete file from disk
     try {
-      const filepath = join(process.cwd(), 'public', media.url)
+      const filepath = join(process.cwd(), 'data', media.url)
       await unlink(filepath)
     } catch {
       // File may already be missing
