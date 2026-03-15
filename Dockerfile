@@ -33,6 +33,7 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
 COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/app/generated ./app/generated
 
 # Install only production deps needed at runtime (pg adapter, prisma engine, etc.)
 COPY --from=builder /app/node_modules ./node_modules
@@ -40,5 +41,5 @@ COPY --from=builder /app/package-lock.json* ./
 
 EXPOSE 3030
 
-# Run DB migrations then start the server
-CMD ["sh", "-c", "npx prisma migrate deploy && node .output/server/index.mjs"]
+# Run DB migrations, seed, then start the server
+CMD ["sh", "-c", "npx prisma migrate deploy && npx tsx prisma/seed.ts && node .output/server/index.mjs"]
