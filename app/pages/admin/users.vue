@@ -37,8 +37,8 @@
               <td class="text-base-content/70 text-sm">{{ u.email }}</td>
               <td>
                 <span class="badge badge-sm badge-soft"
-                  :class="u.role === 'superadmin' ? 'badge-secondary' : 'badge-ghost'">
-                  {{ u.role === 'superadmin' ? 'Superadmin' : 'Admin' }}
+                  :class="u.role === 'superadmin' ? 'badge-secondary' : u.role === 'customer' ? 'badge-accent' : 'badge-ghost'">
+                  {{ u.role === 'superadmin' ? 'Superadmin' : u.role === 'customer' ? 'Customer' : 'Admin' }}
                 </span>
               </td>
               <td class="text-base-content/50 text-xs">{{ formatDate(u.createdAt) }}</td>
@@ -95,6 +95,7 @@
             <select v-model="form.role" class="select w-full">
               <option value="admin">Admin</option>
               <option value="superadmin">Superadmin</option>
+              <option value="customer">Customer</option>
             </select>
             <p class="label text-xs text-base-content/40">Superadmin can manage users and activate features</p>
           </fieldset>

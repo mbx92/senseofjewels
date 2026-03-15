@@ -128,10 +128,8 @@
 
             <p class="px-3 mb-1.5 mt-4 text-xs font-semibold uppercase tracking-wider text-primary-content/40">Assets</p>
             <ul class="flex flex-col gap-0.5">
-              <li>
-                <!-- Shop (feature-gated) -->
+              <li v-if="plan.hasFeature('shop')">
                 <NuxtLink
-                  v-if="plan.hasFeature('shop')"
                   to="/shop"
                   target="_blank"
                   active-class="bg-white/15 text-white font-semibold"
@@ -140,11 +138,16 @@
                   <IconShoppingBag class="w-5 h-5 shrink-0" />
                   Shop Page
                 </NuxtLink>
-                <div v-else class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-base text-primary-content/30 cursor-not-allowed select-none">
-                  <IconShoppingBag class="w-5 h-5 shrink-0" />
-                  <span class="flex-1">Shop Page</span>
-                  <IconLock class="w-3.5 h-3.5 shrink-0" />
-                </div>
+              </li>
+              <li v-if="plan.hasFeature('cart')">
+                <NuxtLink
+                  to="/admin/orders"
+                  active-class="bg-white/15 text-white font-semibold"
+                  class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-base text-primary-content/75 hover:bg-white/10 hover:text-white transition-colors w-full"
+                >
+                  <IconShoppingCart class="w-5 h-5 shrink-0" />
+                  Orders
+                </NuxtLink>
               </li>
               <li>
                 <NuxtLink
@@ -214,6 +217,7 @@ import {
   IconLogout,
   IconLock,
   IconShoppingBag,
+  IconShoppingCart,
   IconUsers,
 } from '@tabler/icons-vue'
 
@@ -237,6 +241,7 @@ const pageTitle = computed(() => {
     '/admin/media': 'Media',
     '/admin/settings': 'Settings',
     '/admin/users': 'Users',
+    '/admin/orders': 'Orders',
   }
   return titles[route.path] || 'Page'
 })

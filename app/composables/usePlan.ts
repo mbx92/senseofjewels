@@ -13,6 +13,12 @@ export const FEATURES = {
     description: 'Public /shop page with product catalog, search, and filtering',
     icon: 'shop',
   },
+  cart: {
+    key: 'featureCart',
+    label: 'Shopping Cart & Checkout',
+    description: 'Add-to-cart, cart drawer, and checkout flow with customer login (requires Shop to be enabled)',
+    icon: 'cart',
+  },
   seo: {
     key: 'featureSeo',
     label: 'SEO & Social Sharing',

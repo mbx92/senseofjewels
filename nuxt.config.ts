@@ -41,10 +41,14 @@ export default defineNuxtConfig({
     },
   },
   runtimeConfig: {
-    authEmail: '',
-    authPassword: '',
+    authEmail: process.env.NUXT_AUTH_EMAIL || '',
+    authPassword: process.env.NUXT_AUTH_PASSWORD || '',
+    midtransServerKey: process.env.NUXT_MIDTRANS_SERVER_KEY || '',
+    rajaongkirApiKey: process.env.NUXT_RAJAONGKIR_API_KEY || '',
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://senseofjewels.com',
+      midtransClientKey: process.env.NUXT_PUBLIC_MIDTRANS_CLIENT_KEY || '',
+      midtransIsProduction: process.env.NUXT_PUBLIC_MIDTRANS_IS_PRODUCTION || 'false',
     },
   },
 })

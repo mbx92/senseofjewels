@@ -56,6 +56,7 @@ const collections = computed(() => collectionsData.value?.filter(c => c.isActive
 const testimonials = computed(() => testimonialsData.value?.filter(t => t.isActive) ?? [])
 
 const { lang, currency, t, formatPrice, toggleLang, toggleCurrency } = useLocale()
+const plan = usePlan()
 const requestURL = useRequestURL()
 
 function getSection(slug: string) {
@@ -105,7 +106,7 @@ useSeoMeta({
           </span>
         </NuxtLink>
         <div class="hidden md:flex items-center gap-8 text-xs font-medium tracking-widest uppercase text-base-content/70">
-          <NuxtLink to="/shop" class="hover:text-secondary transition-colors">{{ t.nav.shop }}</NuxtLink>
+          <NuxtLink v-if="plan.hasFeature('shop')" to="/shop" class="hover:text-secondary transition-colors">{{ t.nav.shop }}</NuxtLink>
           <a href="#collections" class="hover:text-secondary transition-colors">{{ t.nav.collections }}</a>
           <a href="#about" class="hover:text-secondary transition-colors">{{ t.nav.about }}</a>
           <a href="#testimonials" class="hover:text-secondary transition-colors">{{ t.nav.reviews }}</a>
@@ -119,7 +120,7 @@ useSeoMeta({
           <button @click="toggleCurrency" class="btn btn-xs btn-ghost font-medium tracking-widest text-base-content/50 hover:text-primary px-2">
             {{ currency }}
           </button>
-          <NuxtLink to="/shop" class="hidden md:inline-flex btn btn-sm btn-secondary text-primary text-xs tracking-widest uppercase ml-2">
+          <NuxtLink v-if="plan.hasFeature('shop')" to="/shop" class="hidden md:inline-flex btn btn-sm btn-secondary text-primary text-xs tracking-widest uppercase ml-2">
             {{ t.nav.shopNow }}
           </NuxtLink>
         </div>

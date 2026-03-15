@@ -1,10 +1,38 @@
 <script setup lang="ts">
-import { IconDiamond, IconSearch, IconShoppingBag, IconX, IconBrandWhatsapp, IconMail, IconChevronLeft, IconChevronRight } from '@tabler/icons-vue'
+import { IconDiamond, IconSearch, IconShoppingBag, IconX, IconBrandWhatsapp, IconMail, IconChevronLeft, IconChevronRight, IconUser, IconLogout, IconShoppingCart, IconMinus, IconPlus, IconTrash } from '@tabler/icons-vue'
 
 definePageMeta({ layout: false, middleware: 'features' })
 
 const { data: themeSettings } = useFetch<Record<string, string>>('/api/settings')
 useTheme(themeSettings)
+
+const { user, fetchUser, logout } = useAuth()
+onMounted(async () => {
+  await fetchUser()
+})
+
+// ---- Cart ----
+const featureCart = computed(() => settings.value?.featureCart === 'true')
+
+const { cart, cartCount, cartTotal, addToCart: addToCartFn, removeFromCart, updateQty } = useCart()
+const cartOpen = ref(false)
+const justAddedId = ref<string | null>(null)
+
+function addToCart(product: Product) {
+  addToCartFn({ id: product.id, name: product.name, price: product.price, image: product.image, collection: product.collection })
+  justAddedId.value = product.id
+  setTimeout(() => { justAddedId.value = null }, 1500)
+  cartOpen.value = true
+}
+
+function openCheckout() {
+  if (!user.value) {
+    navigateTo({ path: '/login', query: { redirect: '/checkout' } })
+    return
+  }
+  cartOpen.value = false
+  navigateTo('/checkout')
+}
 
 interface Collection {
   id: string
@@ -76,6 +104,11 @@ function closeProduct() {
   selectedProduct.value = null
   document.body.style.overflow = ''
 }
+
+// Always restore scroll when leaving this page
+onBeforeUnmount(() => {
+  document.body.style.overflow = ''
+})
 
 const modalImages = computed(() => {
   if (!selectedProduct.value) return []
@@ -156,6 +189,23 @@ useSeoMeta({
           <NuxtLink to="/" class="btn btn-sm btn-outline btn-primary text-xs tracking-widest uppercase ml-2">
             {{ t.nav.backToHome }}
           </NuxtLink>
+          <!-- Cart button -->
+          <button v-if="featureCart" @click="cartOpen = true" class="btn btn-sm btn-ghost relative ml-1">
+            <IconShoppingCart class="w-5 h-5" />
+            <span v-if="cartCount > 0" class="badge badge-xs badge-secondary text-primary absolute -top-1 -right-1 min-w-4">{{ cartCount }}</span>
+          </button>
+          <div v-if="user" class="flex items-center gap-1 ml-1">
+            <div class="dropdown dropdown-end">
+              <button tabindex="0" class="btn btn-sm btn-ghost gap-1.5">
+                <IconUser class="w-4 h-4" />
+                <span class="hidden sm:inline text-xs">{{ user.name.split(' ')[0] }}</span>
+              </button>
+              <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-60 w-48 p-2 shadow border border-base-200">
+                <li class="menu-title text-xs">{{ user.email }}</li>
+                <li><button class="text-error text-xs" @click="logout"><IconLogout class="w-4 h-4" />Keluar</button></li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
@@ -268,6 +318,19 @@ useSeoMeta({
             <div class="flex items-center justify-between mt-2">
               <span class="font-medium text-primary text-sm tracking-wide">{{ formatPrice(product.price) }}</span>
             </div>
+            <button
+              v-if="featureCart"
+              @click.stop="addToCart(product)"
+              class="btn btn-primary btn-sm btn-block mt-3 text-xs tracking-widest uppercase gap-1.5"
+            >
+              <template v-if="justAddedId === product.id">
+                <span>✓</span> {{ t.cart.addToCart }}
+              </template>
+              <template v-else>
+                <IconShoppingCart class="w-3.5 h-3.5" />
+                {{ t.cart.addToCart }}
+              </template>
+            </button>
           </div>
         </div>
       </div>
@@ -336,32 +399,119 @@ useSeoMeta({
                 {{ selectedProduct.description }}
               </p>
 
-              <!-- Phase 1: Inquiry CTA -->
+              <!-- CTA -->
               <div class="mt-auto pt-8 space-y-3">
-                <p class="text-xs text-base-content/40 tracking-wide text-center uppercase">{{ t.shop.interested }}</p>
+                <!-- Cart mode -->
+                <template v-if="featureCart">
+                  <button
+                    @click="addToCart(selectedProduct)"
+                    class="btn btn-primary w-full text-sm tracking-widest uppercase gap-2"
+                  >
+                    <template v-if="justAddedId === selectedProduct.id">
+                      <span>✓</span> {{ t.cart.addToCart }}
+                    </template>
+                    <template v-else>
+                      <IconShoppingCart class="size-4" />
+                      {{ t.cart.addToCart }}
+                    </template>
+                  </button>
+                </template>
 
-                <button
-                  v-if="settings?.whatsappNumber"
-                  @click="inquireWhatsApp(selectedProduct)"
-                  class="btn btn-secondary text-primary w-full text-sm tracking-widest uppercase gap-2"
-                >
-                  <IconBrandWhatsapp class="size-4" />
-                  {{ t.shop.whatsapp }}
-                </button>
-
-                <button
-                  v-if="settings?.contactEmail"
-                  @click="inquireEmail(selectedProduct)"
-                  class="btn btn-outline btn-primary w-full text-sm tracking-widest uppercase gap-2"
-                >
-                  <IconMail class="size-4" />
-                  {{ t.shop.emailInquiry }}
-                </button>
-
-                <p class="text-xs text-base-content/30 text-center pt-1 font-light">
-                  {{ t.shop.comingSoon }}
-                </p>
+                <!-- Inquiry only mode -->
+                <template v-else>
+                  <p class="text-xs text-base-content/40 tracking-wide text-center uppercase">{{ t.shop.interested }}</p>
+                  <button
+                    v-if="settings?.whatsappNumber"
+                    @click="inquireWhatsApp(selectedProduct)"
+                    class="btn btn-secondary text-primary w-full text-sm tracking-widest uppercase gap-2"
+                  >
+                    <IconBrandWhatsapp class="size-4" />
+                    {{ t.shop.whatsapp }}
+                  </button>
+                  <button
+                    v-if="settings?.contactEmail"
+                    @click="inquireEmail(selectedProduct)"
+                    class="btn btn-outline btn-primary w-full text-sm tracking-widest uppercase gap-2"
+                  >
+                    <IconMail class="size-4" />
+                    {{ t.shop.emailInquiry }}
+                  </button>
+                  <p class="text-xs text-base-content/30 text-center pt-1 font-light">
+                    {{ t.shop.comingSoon }}
+                  </p>
+                </template>
               </div>
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
+
+    <!-- ===== CART DRAWER ===== -->
+    <Teleport to="body">
+      <Transition name="cart-drawer">
+        <div v-if="cartOpen" class="fixed inset-0 z-200 flex justify-end" data-theme="jewels">
+          <div class="absolute inset-0 bg-primary/50 backdrop-blur-sm" @click="cartOpen = false" />
+          <div class="cart-panel relative bg-base-100 w-full max-w-sm shadow-2xl flex flex-col h-full">
+            <!-- Header -->
+            <div class="flex items-center justify-between px-6 py-4 border-b border-base-200 shrink-0">
+              <div class="flex items-center gap-2">
+                <IconShoppingCart class="w-5 h-5 text-primary" />
+                <h2 class="font-serif text-lg text-primary font-light">{{ t.cart.title }}</h2>
+                <span v-if="cartCount > 0" class="badge badge-sm badge-secondary text-primary">{{ cartCount }}</span>
+              </div>
+              <button @click="cartOpen = false" class="btn btn-sm btn-circle btn-ghost">
+                <IconX class="w-4 h-4" />
+              </button>
+            </div>
+
+            <!-- Empty state -->
+            <div v-if="cart.length === 0" class="flex-1 flex flex-col items-center justify-center gap-3 p-8 text-center">
+              <IconShoppingCart class="w-12 h-12 text-base-content/15" />
+              <p class="font-serif text-base-content/40 font-light">{{ t.cart.empty }}</p>
+              <button @click="cartOpen = false" class="btn btn-sm btn-ghost text-xs tracking-widest uppercase mt-2">
+                {{ t.cart.browseShop }}
+              </button>
+            </div>
+
+            <!-- Items -->
+            <div v-else class="flex-1 overflow-y-auto px-6 py-4 space-y-4">
+              <div v-for="item in cart" :key="item.product.id" class="flex gap-3 items-start">
+                <div class="w-16 h-16 bg-base-200 rounded shrink-0 overflow-hidden">
+                  <img v-if="item.product.image" :src="item.product.image" :alt="item.product.name" class="w-full h-full object-contain p-1" />
+                  <div v-else class="w-full h-full flex items-center justify-center">
+                    <IconDiamond class="w-5 h-5 text-base-content/20" />
+                  </div>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="font-medium text-sm text-primary leading-snug line-clamp-2">{{ item.product.name }}</p>
+                  <p class="text-xs text-secondary mt-0.5">{{ formatPrice(item.product.price) }}</p>
+                  <div class="flex items-center gap-2 mt-2">
+                    <button @click="updateQty(item.product.id, -1)" class="btn btn-xs btn-circle btn-ghost border border-base-300">
+                      <IconMinus class="w-3 h-3" />
+                    </button>
+                    <span class="text-sm font-medium w-5 text-center">{{ item.qty }}</span>
+                    <button @click="updateQty(item.product.id, 1)" class="btn btn-xs btn-circle btn-ghost border border-base-300">
+                      <IconPlus class="w-3 h-3" />
+                    </button>
+                  </div>
+                </div>
+                <button @click="removeFromCart(item.product.id)" class="btn btn-xs btn-ghost btn-circle text-error shrink-0 mt-0.5">
+                  <IconTrash class="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <div v-if="cart.length > 0" class="border-t border-base-200 px-6 py-5 space-y-3 shrink-0">
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-base-content/60 font-medium uppercase tracking-wide">{{ t.cart.subtotal }}</span>
+                <span class="font-serif text-lg text-primary">{{ formatPrice(cartTotal) }}</span>
+              </div>
+              <button @click="openCheckout" class="btn btn-primary btn-block tracking-widest uppercase text-sm">
+                <IconShoppingCart class="w-4 h-4" />
+                {{ user ? t.cart.checkout : t.cart.loginToCheckout }}
+              </button>
             </div>
           </div>
         </div>
@@ -409,5 +559,23 @@ useSeoMeta({
 .modal-leave-to .relative.z-10 {
   transform: translateY(24px);
   opacity: 0;
+}
+
+/* Cart drawer slide from right */
+.cart-drawer-enter-active,
+.cart-drawer-leave-active {
+  transition: opacity 0.25s ease;
+}
+.cart-drawer-enter-active .cart-panel,
+.cart-drawer-leave-active .cart-panel {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.cart-drawer-enter-from,
+.cart-drawer-leave-to {
+  opacity: 0;
+}
+.cart-drawer-enter-from .cart-panel,
+.cart-drawer-leave-to .cart-panel {
+  transform: translateX(100%);
 }
 </style>

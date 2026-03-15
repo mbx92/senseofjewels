@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
 
     if (body.name) data.name = body.name
     if (body.email) data.email = body.email
-    if (body.role && ['admin', 'superadmin'].includes(body.role)) data.role = body.role
+    if (body.role && ['admin', 'superadmin', 'customer'].includes(body.role)) data.role = body.role
     if (body.password) data.password = await bcrypt.hash(body.password, 12)
 
     const user = await prisma.user.update({

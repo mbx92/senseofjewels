@@ -48,8 +48,14 @@ async function main() {
     { key: 'googleAnalyticsId', value: '' },
     // Feature flags (superadmin controls these)
     { key: 'featureShop', value: 'false' },
+    { key: 'featureCart', value: 'false' },
     { key: 'featureSeo', value: 'false' },
     { key: 'featureTheme', value: 'false' },
+    // Shipping (RajaOngkir)
+    { key: 'shippingOriginCityId', value: '' },
+    { key: 'shippingOriginCityName', value: '' },
+    { key: 'shippingCouriers', value: 'jne,tiki,pos' },
+    { key: 'shippingDefaultWeight', value: '500' },
   ]
   for (const s of settings) {
     await prisma.siteSetting.upsert({

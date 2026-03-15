@@ -93,8 +93,19 @@
 
           <div class="grid grid-cols-2 gap-4">
             <fieldset class="fieldset">
-              <legend class="fieldset-legend text-xs font-semibold uppercase tracking-wide">Price (USD)</legend>
-              <input v-model.number="form.price" type="number" step="0.01" class="input w-full" required />
+              <legend class="fieldset-legend text-xs font-semibold uppercase tracking-wide">Price (IDR)</legend>
+              <label class="input w-full">
+                <span class="text-base-content/40 text-sm">Rp</span>
+                <input
+                  :value="priceDisplay"
+                  @input="onPriceInput"
+                  type="text"
+                  inputmode="numeric"
+                  placeholder="0"
+                  class=""
+                  required
+                />
+              </label>
             </fieldset>
             <fieldset class="fieldset">
               <legend class="fieldset-legend text-xs font-semibold uppercase tracking-wide">Collection</legend>
@@ -209,6 +220,20 @@ const defaultForm = () => ({
   sortOrder: 0,
 })
 const form = ref(defaultForm())
+
+// Price display: format with dot-separated thousands (Indonesian style)
+const priceDisplay = computed(() =>
+  form.value.price ? form.value.price.toLocaleString('id-ID') : ''
+)
+function onPriceInput(e: Event) {
+  const raw = (e.target as HTMLInputElement).value.replace(/\D/g, '')
+  form.value.price = raw ? parseInt(raw, 10) : 0
+  // Update displayed value with formatting
+  nextTick(() => {
+    const input = e.target as HTMLInputElement
+    input.value = form.value.price ? form.value.price.toLocaleString('id-ID') : ''
+  })
+}
 
 function openCreate() {
   editing.value = null

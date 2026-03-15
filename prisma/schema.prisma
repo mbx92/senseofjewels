@@ -16,7 +16,8 @@ model User {
   name      String
   email     String   @unique
   password  String
-  role      String   @default("admin") // "admin" | "superadmin"
+  role      String   @default("admin") // "superadmin" | "admin" | "customer"
+  orders    Order[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -106,4 +107,50 @@ model Media {
   createdAt DateTime @default(now())
 
   @@map("media")
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  userId      String
+  user        User        @relation(fields: [userId], references: [id])
+  // Shipping details (snapshot at order time)
+  shipName    String
+  shipEmail   String
+  shipPhone   String
+  shipAddress String      @db.Text
+  shipCity    String
+  shipProvince String
+  shipPostal  String
+  shipNotes   String?     @db.Text
+  // Financials (in USD)
+  subtotal       Decimal   @db.Decimal(15, 2)
+  // Payment
+  paymentStatus  String    @default("unpaid")  // unpaid | paid | failed | expired
+  paymentMethod  String?
+  paymentToken   String?
+  paymentUrl     String?   @db.Text
+  paidAt         DateTime?
+  status         String    @default("pending") // pending | confirmed | processing | shipped | delivered | cancelled
+  // Shipping (RajaOngkir)
+  shippingCost    Decimal?  @db.Decimal(15, 2)  // IDR
+  shippingCourier String?   // e.g. "jne", "jnt"
+  shippingService String?   // e.g. "REG", "YES"
+  items       OrderItem[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id          String  @id @default(cuid())
+  orderId     String
+  order       Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String
+  productName String
+  productImage String?
+  price       Decimal @db.Decimal(15, 2)
+  qty         Int
+
+  @@map("order_items")
 }

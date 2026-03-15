@@ -80,3 +80,62 @@ export interface User {
   createdAt: string
   updatedAt: string
 }
+
+export interface OrderItem {
+  id: string
+  orderId: string
+  productId: string
+  productName: string
+  productImage?: string | null
+  price: number | string
+  qty: number
+}
+
+export type OrderStatus = 'pending' | 'confirmed' | 'processing' | 'shipped' | 'delivered' | 'cancelled'
+export type PaymentStatus = 'unpaid' | 'paid' | 'failed' | 'expired'
+
+export interface CityOption {
+  id: string
+  name: string
+  type: string       // district name
+  province: string
+  postal: string
+  label: string      // full display label
+  cityName: string
+}
+
+export interface ShippingOption {
+  courier: string
+  courierName: string
+  service: string
+  description: string
+  cost: number      // IDR
+  etd: string
+}
+
+export interface Order {
+  id: string
+  userId: string
+  user?: { id: string; name: string; email: string }
+  shipName: string
+  shipEmail: string
+  shipPhone: string
+  shipAddress: string
+  shipCity: string
+  shipProvince: string
+  shipPostal: string
+  shipNotes?: string | null
+  subtotal: number | string
+  paymentStatus: PaymentStatus
+  paymentMethod?: string | null
+  paymentToken?: string | null
+  paymentUrl?: string | null
+  paidAt?: string | null
+  shippingCost?: number | string | null    // IDR
+  shippingCourier?: string | null
+  shippingService?: string | null
+  status: OrderStatus
+  items: OrderItem[]
+  createdAt: string
+  updatedAt: string
+}

@@ -30,12 +30,13 @@ export default defineEventHandler(async (event) => {
     if (existing) throw createError({ statusCode: 409, statusMessage: 'Email already in use' })
 
     const hashed = await bcrypt.hash(body.password, 12)
+    const allowedRoles = ['superadmin', 'admin', 'customer']
     const user = await prisma.user.create({
       data: {
         name: body.name,
         email: body.email,
         password: hashed,
-        role: body.role === 'superadmin' ? 'superadmin' : 'admin',
+        role: allowedRoles.includes(body.role) ? body.role : 'admin',
       },
       select: { id: true, name: true, email: true, role: true, createdAt: true, updatedAt: true },
     })

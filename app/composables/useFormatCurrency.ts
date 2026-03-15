@@ -1,12 +1,12 @@
 export const useFormatCurrency = () => {
   const formatCurrency = (value: number | string | null | undefined) => {
     const num = typeof value === 'string' ? parseFloat(value) : Number(value ?? 0)
-    if (isNaN(num)) return '$0'
-    return new Intl.NumberFormat('en-US', {
+    if (isNaN(num)) return 'Rp 0'
+    return new Intl.NumberFormat('id-ID', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'IDR',
       minimumFractionDigits: 0,
-      maximumFractionDigits: 2,
+      maximumFractionDigits: 0,
     }).format(num)
   }
 
