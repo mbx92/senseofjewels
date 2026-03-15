@@ -40,6 +40,9 @@ export default defineNuxtConfig({
       allowedHosts: true,
     },
   },
+  nitro: {
+    trustProxy: true,
+  },
   runtimeConfig: {
     authEmail: process.env.NUXT_AUTH_EMAIL || '',
     authPassword: process.env.NUXT_AUTH_PASSWORD || '',
