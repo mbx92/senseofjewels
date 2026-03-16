@@ -42,6 +42,12 @@ export default defineNuxtConfig({
   },
   nitro: {
     trustProxy: true,
+    experimental: {
+      tasks: true,
+    },
+    scheduledTasks: {
+      '0 23 * * *': ['backup:database'],
+    },
   },
   runtimeConfig: {
     authEmail: process.env.NUXT_AUTH_EMAIL || '',

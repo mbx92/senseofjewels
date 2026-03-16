@@ -354,6 +354,59 @@
       </div>
     </div>
 
+    <!-- Database Backup Card -->
+    <div class="card bg-base-100 border border-base-300 mt-6">
+      <div class="card-body">
+        <div class="flex items-center justify-between mb-1">
+          <div class="flex items-center gap-2">
+            <IconDatabase class="w-5 h-5 text-base-content/60" />
+            <h2 class="font-semibold text-sm uppercase tracking-wide text-base-content/50">Database Backup</h2>
+          </div>
+          <button
+            type="button"
+            class="btn btn-sm btn-primary"
+            :disabled="creatingBackup"
+            @click="triggerBackup"
+          >
+            <span v-if="creatingBackup" class="loading loading-spinner loading-xs"></span>
+            <IconDatabaseExport v-else class="w-4 h-4" />
+            {{ creatingBackup ? 'Creating...' : 'Backup Now' }}
+          </button>
+        </div>
+        <p class="text-xs text-base-content/40 mb-4">Auto backup berjalan setiap hari pukul 23:00. Maksimal 7 file backup tersimpan.</p>
+
+        <div v-if="backupsLoading" class="text-center py-6">
+          <span class="loading loading-spinner loading-sm"></span>
+        </div>
+
+        <div v-else-if="!backups.length" class="flex flex-col items-center py-8 text-base-content/30">
+          <IconDatabase class="w-10 h-10 mb-2" />
+          <p class="text-sm">Belum ada backup. Klik <strong>Backup Now</strong> untuk membuat backup pertama.</p>
+        </div>
+
+        <div v-else class="flex flex-col gap-2">
+          <div
+            v-for="backup in backups"
+            :key="backup.filename"
+            class="flex items-center gap-3 p-3 rounded-lg border border-base-200 hover:bg-base-200/50 transition-colors"
+          >
+            <IconFileTypeJs class="w-5 h-5 text-secondary shrink-0" />
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-mono truncate text-base-content">{{ backup.filename }}</p>
+              <p class="text-xs text-base-content/40 mt-0.5">{{ formatBackupDate(backup.createdAt) }} · {{ formatBackupSize(backup.size) }}</p>
+            </div>
+            <a
+              :href="`/api/backup/${backup.filename}`"
+              class="btn btn-sm btn-ghost"
+              title="Download backup"
+            >
+              <IconDownload class="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Logo Media Picker Modal -->
     <dialog class="modal" :open="showLogoPicker">
       <div class="modal-box max-w-3xl">
@@ -391,7 +444,7 @@
 </template>
 
 <script setup lang="ts">
-import { IconPhoto, IconX, IconLock, IconShieldCog } from '@tabler/icons-vue'
+import { IconPhoto, IconX, IconLock, IconShieldCog, IconDatabase, IconDatabaseExport, IconDownload, IconFileTypeJs } from '@tabler/icons-vue'
 import { THEME_DEFAULTS, FONT_OPTIONS } from '~/composables/useTheme'
 import { FEATURES } from '~/composables/usePlan'
 import type { Media, CityOption } from '~/types'
@@ -591,4 +644,45 @@ async function save() {
     saving.value = false
   }
 }
+
+// ── Backup ────────────────────────────────────────────────
+interface BackupMeta { filename: string; size: number; createdAt: string }
+
+const backups = ref<BackupMeta[]>([])
+const backupsLoading = ref(false)
+const creatingBackup = ref(false)
+
+async function fetchBackups() {
+  backupsLoading.value = true
+  try {
+    backups.value = await $fetch<BackupMeta[]>('/api/backup')
+  } finally {
+    backupsLoading.value = false
+  }
+}
+
+async function triggerBackup() {
+  creatingBackup.value = true
+  try {
+    await $fetch('/api/backup/create', { method: 'POST' })
+    await fetchBackups()
+  } finally {
+    creatingBackup.value = false
+  }
+}
+
+function formatBackupDate(iso: string) {
+  return new Date(iso).toLocaleString('id-ID', {
+    day: '2-digit', month: 'short', year: 'numeric',
+    hour: '2-digit', minute: '2-digit',
+  })
+}
+
+function formatBackupSize(bytes: number) {
+  if (bytes < 1024) return `${bytes} B`
+  if (bytes < 1048576) return `${(bytes / 1024).toFixed(1)} KB`
+  return `${(bytes / 1048576).toFixed(2)} MB`
+}
+
+onMounted(() => fetchBackups())
 </script>

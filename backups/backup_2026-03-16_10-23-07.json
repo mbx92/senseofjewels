@@ -1,0 +1,592 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-03-16T02:23:07.146Z",
+  "tables": {
+    "users": [
+      {
+        "id": "cmmr0798d00007tkk8n15mr00",
+        "name": "Owner",
+        "email": "owner@senseofjewels.com",
+        "role": "admin",
+        "createdAt": "2026-03-15T00:15:46.813Z",
+        "updatedAt": "2026-03-15T00:15:46.813Z"
+      },
+      {
+        "id": "cmmr1dlwb00007tkko1ttmfve",
+        "name": "pande",
+        "email": "pande@gmail.com",
+        "role": "customer",
+        "createdAt": "2026-03-15T00:48:42.779Z",
+        "updatedAt": "2026-03-15T00:48:42.779Z"
+      },
+      {
+        "id": "cmmo5izsy0000cskk97vzhi6z",
+        "name": "Admin",
+        "email": "admin@senseofjewels.com",
+        "role": "superadmin",
+        "createdAt": "2026-03-13T00:21:34.018Z",
+        "updatedAt": "2026-03-16T00:57:42.544Z"
+      }
+    ],
+    "site_settings": [
+      {
+        "id": "cmmr3od4l0000vgkkfkms7gap",
+        "key": "shippingOriginCityId",
+        "value": "26027"
+      },
+      {
+        "id": "cmmr3od4x0001vgkkmj209hgj",
+        "key": "shippingOriginCityName",
+        "value": "DAUH PURI, DENPASAR BARAT, DENPASAR, BALI, 80113"
+      },
+      {
+        "id": "cmmr3od4z0002vgkkq2izpblh",
+        "key": "shippingCouriers",
+        "value": "jne,tiki,pos,jnt"
+      },
+      {
+        "id": "cmmr3od530003vgkk91cppoa8",
+        "key": "shippingDefaultWeight",
+        "value": "500"
+      },
+      {
+        "id": "cmmo5izth0001cskkgswmd7iu",
+        "key": "siteName",
+        "value": "Sense of Jewels"
+      },
+      {
+        "id": "cmmo5iztq0002cskk2py8fylm",
+        "key": "siteTagline",
+        "value": "Handcrafted Balinese Jewelry"
+      },
+      {
+        "id": "cmmo5iztw0003cskkjdenuxbz",
+        "key": "contactEmail",
+        "value": "sales@senseofjewels.com"
+      },
+      {
+        "id": "cmmo5izu20004cskkc14lti5k",
+        "key": "contactPhone",
+        "value": "+628113994222"
+      },
+      {
+        "id": "cmmo5izu70005cskks5ggxfcf",
+        "key": "address",
+        "value": "Jalan Nangka Utara Gg. Camar No. 4 Tonja Denpasar Utara, Denpasar - Bali, Indonesia"
+      },
+      {
+        "id": "cmmo5izuc0006cskkfjzojlh7",
+        "key": "instagramUrl",
+        "value": "https://instagram.com/senseofjewels"
+      },
+      {
+        "id": "cmmo5izuh0007cskkogyk9pbz",
+        "key": "whatsappNumber",
+        "value": "628113994222"
+      },
+      {
+        "id": "cmmobrowp0009y2kk3wr1nwjb",
+        "key": "logoUrl",
+        "value": "/uploads/media/1773371353971-3se2a32ouck.png"
+      },
+      {
+        "id": "cmmob5ra90000zvkknhrq2ljm",
+        "key": "colorPrimary",
+        "value": "#2a2a2e"
+      },
+      {
+        "id": "cmmob5rad0001zvkksyno6xvq",
+        "key": "colorPrimaryContent",
+        "value": "#f9f8f5"
+      },
+      {
+        "id": "cmmob5rag0002zvkkbyfufhcn",
+        "key": "colorSecondary",
+        "value": "#c9a96e"
+      },
+      {
+        "id": "cmmob5rah0003zvkk445dnds7",
+        "key": "colorAccent",
+        "value": "#b87d5e"
+      },
+      {
+        "id": "cmmob5raj0004zvkksejel0tr",
+        "key": "colorBase100",
+        "value": "#f9f8f5"
+      },
+      {
+        "id": "cmmob5ral0005zvkkwu61tnjx",
+        "key": "colorBaseContent",
+        "value": "#2b2b2f"
+      },
+      {
+        "id": "cmmoge4xw000e9hkk8kyag1tc",
+        "key": "fontHeading",
+        "value": "Cormorant Garamond"
+      },
+      {
+        "id": "cmmoge4xy000f9hkku6y7ctix",
+        "key": "fontBody",
+        "value": ""
+      },
+      {
+        "id": "cmmomh0sk0000d7kkqtopye75",
+        "key": "siteUrl",
+        "value": "https://senseofjewels.com"
+      },
+      {
+        "id": "cmmomh0tb0001d7kk8oehtvjm",
+        "key": "metaDescription",
+        "value": ""
+      },
+      {
+        "id": "cmmomh0te0002d7kk2l3jqyd6",
+        "key": "metaKeywords",
+        "value": "handcrafted jewelry, bali, necklace, earrings, bracelets, rings"
+      },
+      {
+        "id": "cmmomh0th0003d7kk2s9tarqn",
+        "key": "ogImage",
+        "value": ""
+      },
+      {
+        "id": "cmmomh0ti0004d7kkry1n14ia",
+        "key": "googleAnalyticsId",
+        "value": ""
+      },
+      {
+        "id": "cmmomh0tk0005d7kkkap3ehm9",
+        "key": "featureShop",
+        "value": "false"
+      },
+      {
+        "id": "cmmr0u0uv00017tkkeasqyb3u",
+        "key": "featureCart",
+        "value": "false"
+      },
+      {
+        "id": "cmmomh0tm0006d7kkr4lct3bg",
+        "key": "featureSeo",
+        "value": "false"
+      },
+      {
+        "id": "cmmomh0to0007d7kkqv6o8xqm",
+        "key": "featureTheme",
+        "value": "true"
+      }
+    ],
+    "sections": [
+      {
+        "id": "cmmo5izup0008cskk2ednryuf",
+        "slug": "hero",
+        "title": "Hero",
+        "subtitle": "Discover the magic of Bali",
+        "body": "Exquisite, handcrafted jewelry inspired by the island's rich cultural heritage.",
+        "image": "/uploads/media/1773372074007-jpbbhjb0mbp.jpg",
+        "metadata": {
+          "badgeLabel": "Handcrafted in Bali",
+          "scrollText": "Scroll",
+          "ctaPrimaryLink": "#collections",
+          "ctaPrimaryText": "Explore Collections",
+          "ctaSecondaryLink": "#about",
+          "ctaSecondaryText": "Our Story"
+        },
+        "sortOrder": 1,
+        "isActive": true,
+        "createdAt": "2026-03-13T00:21:34.081Z",
+        "updatedAt": "2026-03-16T00:57:42.686Z"
+      },
+      {
+        "id": "cmmo5izut0009cskkprovoox5",
+        "slug": "about",
+        "title": "About Us",
+        "subtitle": "Our Story",
+        "body": "Sense of Jewels was born out of a passion for the enchanting beauty and timeless traditions of Bali.",
+        "image": "/uploads/media/1773372073967-0ngyskxv1tc.png",
+        "metadata": {
+          "badgeLabel": "Our Story",
+          "stat1Label": "Years of Craft",
+          "stat1Value": "15+",
+          "stat2Label": "Unique Designs",
+          "stat2Value": "500+",
+          "stat3Label": "Countries",
+          "stat3Value": "50+"
+        },
+        "sortOrder": 2,
+        "isActive": true,
+        "createdAt": "2026-03-13T00:21:34.085Z",
+        "updatedAt": "2026-03-16T00:57:42.689Z"
+      },
+      {
+        "id": "cmmo5izuz000acskkwbigdrlp",
+        "slug": "collections",
+        "title": "Collections",
+        "subtitle": "Explore Our Collection",
+        "body": "",
+        "image": "/uploads/media/1773372073679-3s8nvy640na.jpg",
+        "metadata": {
+          "viewText": "View Collection",
+          "badgeLabel": "Our Craft",
+          "emptySoonText": "Collections coming soon"
+        },
+        "sortOrder": 3,
+        "isActive": true,
+        "createdAt": "2026-03-13T00:21:34.091Z",
+        "updatedAt": "2026-03-16T00:57:42.691Z"
+      },
+      {
+        "id": "cmmo5izv2000bcskkxbyw79lh",
+        "slug": "sustainability",
+        "title": "Sustainability",
+        "subtitle": "Our Commitment to Sustainability",
+        "body": null,
+        "image": null,
+        "metadata": {
+          "badgeLabel": "Our Values",
+          "feature1Body": "Recycled metals and sustainable packaging in every order.",
+          "feature2Body": "Artisans are paid fairly and work in safe, dignified conditions.",
+          "feature3Body": "Gemstones and metals sourced with full traceability.",
+          "feature4Body": "Every piece individually crafted — never mass produced.",
+          "feature1Title": "Eco-Friendly",
+          "feature2Title": "Fair Trade",
+          "feature3Title": "Ethically Sourced",
+          "feature4Title": "Handmade"
+        },
+        "sortOrder": 4,
+        "isActive": true,
+        "createdAt": "2026-03-13T00:21:34.094Z",
+        "updatedAt": "2026-03-16T00:57:42.693Z"
+      },
+      {
+        "id": "cmmsh516200008ekk572sng02",
+        "slug": "testimonials",
+        "title": "What Our Customers Say",
+        "subtitle": null,
+        "body": null,
+        "image": null,
+        "metadata": {
+          "badgeLabel": "Loved By Many",
+          "emptySoonText": "Reviews coming soon"
+        },
+        "sortOrder": 5,
+        "isActive": true,
+        "createdAt": "2026-03-16T00:57:42.698Z",
+        "updatedAt": "2026-03-16T00:57:42.698Z"
+      },
+      {
+        "id": "cmmo5izv5000ccskks8rgbc36",
+        "slug": "contact",
+        "title": "Contact",
+        "subtitle": "We would love to hear from you",
+        "body": null,
+        "image": null,
+        "metadata": {
+          "badgeLabel": "Get In Touch",
+          "emailLabel": "Email",
+          "socialLabel": "Follow Us",
+          "locationLabel": "Location"
+        },
+        "sortOrder": 5,
+        "isActive": true,
+        "createdAt": "2026-03-13T00:21:34.097Z",
+        "updatedAt": "2026-03-16T00:57:42.703Z"
+      }
+    ],
+    "collections": [
+      {
+        "id": "cmmo5izvi000ecskkg4wwaq2u",
+        "name": "Earrings",
+        "slug": "earrings",
+        "description": "Add a sparkle to your day. Our earrings range from delicate studs to statement pieces.",
+        "image": "/uploads/media/1773371371844-25qgk3ul1ov.png",
+        "sortOrder": 2,
+        "isActive": true,
+        "createdAt": "2026-03-13T00:21:34.109Z",
+        "updatedAt": "2026-03-13T05:56:17.092Z"
+      },
+      {
+        "id": "cmmo5izvm000fcskkz94rnyf5",
+        "name": "Bracelets",
+        "slug": "bracelets",
+        "description": "Embrace tradition with our beautifully crafted bracelets.",
+        "image": "/uploads/media/1773372073620-ryrj5i4yax.png",
+        "sortOrder": 3,
+        "isActive": true,
+        "createdAt": "2026-03-13T00:21:34.113Z",
+        "updatedAt": "2026-03-13T05:57:40.563Z"
+      },
+      {
+        "id": "cmmo5izvr000gcskkj2ji497w",
+        "name": "Rings",
+        "slug": "rings",
+        "description": "Celebrate life's moments. Our rings are designed for every occasion.",
+        "image": "/uploads/media/1773372073854-68n2458li2c.png",
+        "sortOrder": 4,
+        "isActive": true,
+        "createdAt": "2026-03-13T00:21:34.117Z",
+        "updatedAt": "2026-03-13T05:57:47.837Z"
+      },
+      {
+        "id": "cmmo5izvc000dcskkqnhowlj5",
+        "name": "Necklaces",
+        "slug": "necklaces",
+        "description": "Adorn yourself with elegance. Our necklaces are designed to complement any outfit.",
+        "image": "/uploads/media/1773372073836-91nkki5mrkv.png",
+        "sortOrder": 1,
+        "isActive": true,
+        "createdAt": "2026-03-13T00:21:34.102Z",
+        "updatedAt": "2026-03-14T06:25:21.777Z"
+      }
+    ],
+    "products": [
+      {
+        "id": "cmmo82ewc0000y2kk85365oeu",
+        "name": "Kalung",
+        "slug": "kalung",
+        "description": "",
+        "price": "399000",
+        "image": "/uploads/media/1773372073809-2yu7wc8z4x6.png",
+        "gallery": [
+          "/uploads/media/1773372073836-91nkki5mrkv.png",
+          "/uploads/media/1773372073620-ryrj5i4yax.png",
+          "/uploads/media/1773372073679-3s8nvy640na.jpg"
+        ],
+        "collectionId": "cmmo5izvc000dcskkqnhowlj5",
+        "isFeatured": false,
+        "isActive": true,
+        "sortOrder": 0,
+        "createdAt": "2026-03-13T01:32:39.276Z",
+        "updatedAt": "2026-03-15T01:43:13.637Z"
+      }
+    ],
+    "testimonials": [
+      {
+        "id": "cmmo5izw1000hcskkcdkj8s82",
+        "name": "Sarah M.",
+        "role": "Customer",
+        "content": "The craftsmanship is absolutely stunning. Every piece tells a story and I receive compliments every time I wear my bracelet.",
+        "avatar": null,
+        "rating": 5,
+        "isActive": true,
+        "sortOrder": 1,
+        "createdAt": "2026-03-13T00:21:34.129Z",
+        "updatedAt": "2026-03-13T00:21:34.129Z"
+      }
+    ],
+    "media": [
+      {
+        "id": "cmmo8ypz90000y2kkson5gpny",
+        "filename": "99c9c0d798f915df9709fc82a697cff5.jpg",
+        "url": "/uploads/media/1773367066616-kgjdt87ykmf.jpg",
+        "mimeType": "image/jpeg",
+        "size": 239104,
+        "alt": null,
+        "folder": "test 1",
+        "createdAt": "2026-03-13T01:57:46.629Z"
+      },
+      {
+        "id": "cmmobim470000y2kk5wxbiczk",
+        "filename": "9e3dee141c6efa87959073931ca3392d.png",
+        "url": "/uploads/media/1773371353971-3se2a32ouck.png",
+        "mimeType": "image/png",
+        "size": 36822,
+        "alt": null,
+        "folder": null,
+        "createdAt": "2026-03-13T03:09:13.974Z"
+      },
+      {
+        "id": "cmmobizww0001y2kk6y8t8ay2",
+        "filename": "2f6ea06f26576bd2599559742b83d353.png",
+        "url": "/uploads/media/1773371371844-25qgk3ul1ov.png",
+        "mimeType": "image/png",
+        "size": 488526,
+        "alt": null,
+        "folder": null,
+        "createdAt": "2026-03-13T03:09:31.856Z"
+      },
+      {
+        "id": "cmmoby1ed000hy2kk5t32onat",
+        "filename": "6f85f67bc2259c7f68631b89794c135b.png",
+        "url": "/uploads/media/1773372073620-ryrj5i4yax.png",
+        "mimeType": "image/png",
+        "size": 522154,
+        "alt": null,
+        "folder": null,
+        "createdAt": "2026-03-13T03:21:13.621Z"
+      },
+      {
+        "id": "cmmoby1g1000jy2kkcq537qya",
+        "filename": "83fc527a05bc236548cdb8fc4621e0bc.jpg",
+        "url": "/uploads/media/1773372073679-3s8nvy640na.jpg",
+        "mimeType": "image/jpeg",
+        "size": 496209,
+        "alt": null,
+        "folder": null,
+        "createdAt": "2026-03-13T03:21:13.681Z"
+      },
+      {
+        "id": "cmmoby1hn000ly2kkf6o2mp3o",
+        "filename": "2261ac86c8c82e9c011b2f35fcd77831.png",
+        "url": "/uploads/media/1773372073729-3q4mizv2mfv.png",
+        "mimeType": "image/png",
+        "size": 123488,
+        "alt": null,
+        "folder": null,
+        "createdAt": "2026-03-13T03:21:13.739Z"
+      },
+      {
+        "id": "cmmoby1ig000my2kk8t8ivr3l",
+        "filename": "a1c9ba1e2537ff84a58c91608c092186.png",
+        "url": "/uploads/media/1773372073767-05pd3il2ujjs.png",
+        "mimeType": "image/png",
+        "size": 156685,
+        "alt": null,
+        "folder": null,
+        "createdAt": "2026-03-13T03:21:13.768Z"
+      },
+      {
+        "id": "cmmoby1jo000oy2kk50fjmx78",
+        "filename": "ba79c27dcd7331f5663fe232f02056c8.png",
+        "url": "/uploads/media/1773372073809-2yu7wc8z4x6.png",
+        "mimeType": "image/png",
+        "size": 214845,
+        "alt": null,
+        "folder": null,
+        "createdAt": "2026-03-13T03:21:13.812Z"
+      },
+      {
+        "id": "cmmoby1kd000py2kk4ocxt4si",
+        "filename": "c12092400db8f5e652ef2f197b726409.png",
+        "url": "/uploads/media/1773372073836-91nkki5mrkv.png",
+        "mimeType": "image/png",
+        "size": 269265,
+        "alt": null,
+        "folder": null,
+        "createdAt": "2026-03-13T03:21:13.837Z"
+      },
+      {
+        "id": "cmmoby1ku000qy2kk4uwjajtt",
+        "filename": "d933fedc56f74d08cd7c1c8ce81225fb.png",
+        "url": "/uploads/media/1773372073854-68n2458li2c.png",
+        "mimeType": "image/png",
+        "size": 159013,
+        "alt": null,
+        "folder": null,
+        "createdAt": "2026-03-13T03:21:13.854Z"
+      },
+      {
+        "id": "cmmoby1o1000ry2kkxtku7api",
+        "filename": "f01d1c062057439bbf56ab339c31e2d1.png",
+        "url": "/uploads/media/1773372073967-0ngyskxv1tc.png",
+        "mimeType": "image/png",
+        "size": 1791306,
+        "alt": null,
+        "folder": null,
+        "createdAt": "2026-03-13T03:21:13.969Z"
+      }
+    ],
+    "orders": [
+      {
+        "id": "cmmr1s9ik00017tkkeljascjl",
+        "userId": "cmmr1dlwb00007tkko1ttmfve",
+        "shipName": "pande",
+        "shipEmail": "pande@gmail.com",
+        "shipPhone": "08988998998",
+        "shipAddress": "jkl",
+        "shipCity": "jhjjj",
+        "shipProvince": "uuunn",
+        "shipPostal": "899889",
+        "shipNotes": null,
+        "subtotal": "39.99",
+        "paymentStatus": "unpaid",
+        "paymentMethod": null,
+        "paymentToken": null,
+        "paymentUrl": null,
+        "paidAt": null,
+        "status": "pending",
+        "shippingCost": null,
+        "shippingCourier": null,
+        "shippingService": null,
+        "createdAt": "2026-03-15T01:00:06.570Z",
+        "updatedAt": "2026-03-15T01:00:06.570Z"
+      },
+      {
+        "id": "cmmr2guqf00007tkkcah9jcky",
+        "userId": "cmmr1dlwb00007tkko1ttmfve",
+        "shipName": "pande",
+        "shipEmail": "pande@gmail.com",
+        "shipPhone": "0899283928",
+        "shipAddress": "asd",
+        "shipCity": "asd",
+        "shipProvince": "ads",
+        "shipPostal": "asd",
+        "shipNotes": null,
+        "subtotal": "79.98",
+        "paymentStatus": "unpaid",
+        "paymentMethod": null,
+        "paymentToken": null,
+        "paymentUrl": null,
+        "paidAt": null,
+        "status": "pending",
+        "shippingCost": null,
+        "shippingCourier": null,
+        "shippingService": null,
+        "createdAt": "2026-03-15T01:19:13.813Z",
+        "updatedAt": "2026-03-15T01:19:13.813Z"
+      },
+      {
+        "id": "cmmr7he950004vgkk9eukovsf",
+        "userId": "cmmr1dlwb00007tkko1ttmfve",
+        "shipName": "pande",
+        "shipEmail": "pande@gmail.com",
+        "shipPhone": "08938423",
+        "shipAddress": "jalan",
+        "shipCity": "KUTA",
+        "shipProvince": "BALI",
+        "shipPostal": "80361",
+        "shipNotes": null,
+        "subtotal": "399000",
+        "paymentStatus": "unpaid",
+        "paymentMethod": null,
+        "paymentToken": null,
+        "paymentUrl": null,
+        "paidAt": null,
+        "status": "pending",
+        "shippingCost": "9000",
+        "shippingCourier": "jne",
+        "shippingService": "CTC",
+        "createdAt": "2026-03-15T03:39:37.191Z",
+        "updatedAt": "2026-03-15T03:39:37.191Z"
+      }
+    ],
+    "order_items": [
+      {
+        "id": "cmmr1s9im00027tkker7my88z",
+        "orderId": "cmmr1s9ik00017tkkeljascjl",
+        "productId": "cmmo82ewc0000y2kk85365oeu",
+        "productName": "Kalung",
+        "productImage": "/uploads/media/1773372073809-2yu7wc8z4x6.png",
+        "price": "39.99",
+        "qty": 1
+      },
+      {
+        "id": "cmmr2guqh00017tkk66eo1j0r",
+        "orderId": "cmmr2guqf00007tkkcah9jcky",
+        "productId": "cmmo82ewc0000y2kk85365oeu",
+        "productName": "Kalung",
+        "productImage": "/uploads/media/1773372073809-2yu7wc8z4x6.png",
+        "price": "39.99",
+        "qty": 2
+      },
+      {
+        "id": "cmmr7he980005vgkkwck61ved",
+        "orderId": "cmmr7he950004vgkk9eukovsf",
+        "productId": "cmmo82ewc0000y2kk85365oeu",
+        "productName": "Kalung",
+        "productImage": "/uploads/media/1773372073809-2yu7wc8z4x6.png",
+        "price": "399000",
+        "qty": 1
+      }
+    ]
+  }
+}
