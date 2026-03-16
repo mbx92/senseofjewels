@@ -25,6 +25,7 @@ interface Section {
   subtitle: string | null
   body: string | null
   image: string | null
+  metadata: Record<string, string> | null
   isActive: boolean
 }
 
@@ -67,6 +68,12 @@ const hero = computed(() => getSection('hero'))
 const about = computed(() => getSection('about'))
 const sustainability = computed(() => getSection('sustainability'))
 const contact = computed(() => getSection('contact'))
+const testimonials_ = computed(() => getSection('testimonials'))
+
+/** Get a metadata value from a section with a fallback string */
+function meta(section: Section | undefined, key: string, fallback: string = ''): string {
+  return section?.metadata?.[key] || fallback
+}
 
 useHead({
   htmlAttrs: { style: 'scroll-behavior: smooth;' },
@@ -153,15 +160,15 @@ useSeoMeta({
           {{ hero?.subtitle || t.hero.fallbackSubtitle }}
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="#collections" class="btn btn-secondary text-primary text-sm tracking-widest uppercase px-8">
-            {{ t.hero.explore }}
+          <a :href="meta(hero, 'ctaPrimaryLink', '#collections')" class="btn btn-secondary text-primary text-sm tracking-widest uppercase px-8">
+            {{ meta(hero, 'ctaPrimaryText', t.hero.explore) }}
           </a>
-          <a href="#about" class="btn btn-outline border-base-100/30 text-base-100 text-sm tracking-widest uppercase px-8 hover:bg-base-100/10">
-            {{ t.hero.story }}
+          <a :href="meta(hero, 'ctaSecondaryLink', '#about')" class="btn btn-outline border-base-100/30 text-base-100 text-sm tracking-widest uppercase px-8 hover:bg-base-100/10">
+            {{ meta(hero, 'ctaSecondaryText', t.hero.story) }}
           </a>
         </div>
-        <a href="#collections" class="mt-16 inline-flex flex-col items-center gap-2 text-base-100/40 hover:text-secondary transition-colors text-xs tracking-widest uppercase">
-          <span>{{ t.hero.scroll }}</span>
+        <a :href="meta(hero, 'ctaPrimaryLink', '#collections')" class="mt-16 inline-flex flex-col items-center gap-2 text-base-100/40 hover:text-secondary transition-colors text-xs tracking-widest uppercase">
+          <span>{{ meta(hero, 'scrollText', t.hero.scroll) }}</span>
           <IconArrowDown class="size-4 animate-bounce" />
         </a>
       </div>
@@ -173,7 +180,7 @@ useSeoMeta({
         <div class="text-center mb-16">
           <div class="flex items-center justify-center gap-3 mb-4">
             <div class="h-px w-8 bg-secondary/50" />
-            <span class="text-secondary text-xs font-medium tracking-[0.3em] uppercase">{{ t.sections.ourCraft }}</span>
+            <span class="text-secondary text-xs font-medium tracking-[0.3em] uppercase">{{ meta(getSection('collections'), 'badgeLabel', t.sections.ourCraft) }}</span>
             <div class="h-px w-8 bg-secondary/50" />
           </div>
           <h2 class="font-serif text-4xl md:text-5xl text-primary font-light tracking-wide">
@@ -202,7 +209,7 @@ useSeoMeta({
               </div>
               <div class="absolute inset-0 bg-linear-to-t from-primary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
-                <span class="text-base-100 text-xs tracking-widest uppercase font-medium">{{ t.sections.viewCollection }}</span>
+                <span class="text-base-100 text-xs tracking-widest uppercase font-medium">{{ meta(getSection('collections'), 'viewText', t.sections.viewCollection) }}</span>
               </div>
             </div>
             <h3 class="font-serif text-xl text-primary font-light tracking-wide">{{ col.name }}</h3>
@@ -211,7 +218,7 @@ useSeoMeta({
         </div>
         <div v-else class="text-center py-16 text-base-content/40">
           <IconDiamond class="size-12 mx-auto mb-4 opacity-30" />
-          <p class="font-light">{{ t.sections.collectionsSoon }}</p>
+          <p class="font-light">{{ meta(getSection('collections'), 'emptySoonText', t.sections.collectionsSoon) }}</p>
         </div>
       </div>
     </section>
@@ -232,7 +239,7 @@ useSeoMeta({
           <div>
             <div class="flex items-center gap-3 mb-6">
               <div class="h-px w-8 bg-secondary/50" />
-              <span class="text-secondary text-xs font-medium tracking-[0.3em] uppercase">{{ t.sections.ourStory }}</span>
+              <span class="text-secondary text-xs font-medium tracking-[0.3em] uppercase">{{ meta(about, 'badgeLabel', t.sections.ourStory) }}</span>
             </div>
             <h2 class="font-serif text-4xl text-primary font-light leading-tight tracking-wide mb-6">
               {{ about?.title || t.about.fallbackTitle }}
@@ -248,16 +255,16 @@ useSeoMeta({
             </p>
             <div class="mt-10 grid grid-cols-3 gap-6 pt-8 border-t border-base-300">
               <div class="text-center">
-                <div class="font-serif text-3xl text-primary font-light">15+</div>
-                <div class="text-xs text-base-content/50 tracking-widest uppercase mt-1">{{ t.about.yearsCraft }}</div>
+                <div class="font-serif text-3xl text-primary font-light">{{ meta(about, 'stat1Value', '15+') }}</div>
+                <div class="text-xs text-base-content/50 tracking-widest uppercase mt-1">{{ meta(about, 'stat1Label', t.about.yearsCraft) }}</div>
               </div>
               <div class="text-center border-x border-base-300">
-                <div class="font-serif text-3xl text-primary font-light">500+</div>
-                <div class="text-xs text-base-content/50 tracking-widest uppercase mt-1">{{ t.about.uniqueDesigns }}</div>
+                <div class="font-serif text-3xl text-primary font-light">{{ meta(about, 'stat2Value', '500+') }}</div>
+                <div class="text-xs text-base-content/50 tracking-widest uppercase mt-1">{{ meta(about, 'stat2Label', t.about.uniqueDesigns) }}</div>
               </div>
               <div class="text-center">
-                <div class="font-serif text-3xl text-primary font-light">50+</div>
-                <div class="text-xs text-base-content/50 tracking-widest uppercase mt-1">{{ t.about.countries }}</div>
+                <div class="font-serif text-3xl text-primary font-light">{{ meta(about, 'stat3Value', '50+') }}</div>
+                <div class="text-xs text-base-content/50 tracking-widest uppercase mt-1">{{ meta(about, 'stat3Label', t.about.countries) }}</div>
               </div>
             </div>
           </div>
@@ -272,7 +279,7 @@ useSeoMeta({
           <div>
             <div class="flex items-center gap-3 mb-6">
               <div class="h-px w-8 bg-secondary/60" />
-              <span class="text-secondary text-xs font-medium tracking-[0.3em] uppercase">{{ t.sections.ourValues }}</span>
+              <span class="text-secondary text-xs font-medium tracking-[0.3em] uppercase">{{ meta(sustainability, 'badgeLabel', t.sections.ourValues) }}</span>
             </div>
             <h2 class="font-serif text-4xl text-base-100 font-light leading-tight tracking-wide mb-6">
               {{ sustainability?.title || t.sustainability.fallbackTitle }}
@@ -290,23 +297,23 @@ useSeoMeta({
           <div class="grid grid-cols-2 gap-6">
             <div class="p-6 border border-base-100/10 rounded-sm hover:border-secondary/30 transition-colors">
               <IconLeaf class="size-8 text-secondary mb-4" />
-              <h3 class="font-serif text-lg text-base-100 font-light mb-2">{{ t.sustainability.ecoTitle }}</h3>
-              <p class="text-base-100/50 text-sm font-light leading-relaxed">{{ t.sustainability.ecoDesc }}</p>
+              <h3 class="font-serif text-lg text-base-100 font-light mb-2">{{ meta(sustainability, 'feature1Title', t.sustainability.ecoTitle) }}</h3>
+              <p class="text-base-100/50 text-sm font-light leading-relaxed">{{ meta(sustainability, 'feature1Body', t.sustainability.ecoDesc) }}</p>
             </div>
             <div class="p-6 border border-base-100/10 rounded-sm hover:border-secondary/30 transition-colors">
               <IconHeart class="size-8 text-secondary mb-4" />
-              <h3 class="font-serif text-lg text-base-100 font-light mb-2">{{ t.sustainability.fairTitle }}</h3>
-              <p class="text-base-100/50 text-sm font-light leading-relaxed">{{ t.sustainability.fairDesc }}</p>
+              <h3 class="font-serif text-lg text-base-100 font-light mb-2">{{ meta(sustainability, 'feature2Title', t.sustainability.fairTitle) }}</h3>
+              <p class="text-base-100/50 text-sm font-light leading-relaxed">{{ meta(sustainability, 'feature2Body', t.sustainability.fairDesc) }}</p>
             </div>
             <div class="p-6 border border-base-100/10 rounded-sm hover:border-secondary/30 transition-colors">
               <IconDiamond class="size-8 text-secondary mb-4" />
-              <h3 class="font-serif text-lg text-base-100 font-light mb-2">{{ t.sustainability.ethTitle }}</h3>
-              <p class="text-base-100/50 text-sm font-light leading-relaxed">{{ t.sustainability.ethDesc }}</p>
+              <h3 class="font-serif text-lg text-base-100 font-light mb-2">{{ meta(sustainability, 'feature3Title', t.sustainability.ethTitle) }}</h3>
+              <p class="text-base-100/50 text-sm font-light leading-relaxed">{{ meta(sustainability, 'feature3Body', t.sustainability.ethDesc) }}</p>
             </div>
             <div class="p-6 border border-base-100/10 rounded-sm hover:border-secondary/30 transition-colors">
               <IconSparkles class="size-8 text-secondary mb-4" />
-              <h3 class="font-serif text-lg text-base-100 font-light mb-2">{{ t.sustainability.handTitle }}</h3>
-              <p class="text-base-100/50 text-sm font-light leading-relaxed">{{ t.sustainability.handDesc }}</p>
+              <h3 class="font-serif text-lg text-base-100 font-light mb-2">{{ meta(sustainability, 'feature4Title', t.sustainability.handTitle) }}</h3>
+              <p class="text-base-100/50 text-sm font-light leading-relaxed">{{ meta(sustainability, 'feature4Body', t.sustainability.handDesc) }}</p>
             </div>
           </div>
         </div>
@@ -319,11 +326,11 @@ useSeoMeta({
         <div class="text-center mb-16">
           <div class="flex items-center justify-center gap-3 mb-4">
             <div class="h-px w-8 bg-secondary/50" />
-            <span class="text-secondary text-xs font-medium tracking-[0.3em] uppercase">{{ t.sections.lovedByMany }}</span>
+            <span class="text-secondary text-xs font-medium tracking-[0.3em] uppercase">{{ meta(testimonials_, 'badgeLabel', t.sections.lovedByMany) }}</span>
             <div class="h-px w-8 bg-secondary/50" />
           </div>
           <h2 class="font-serif text-4xl md:text-5xl text-primary font-light tracking-wide">
-            {{ t.sections.testimonialsFallback }}
+            {{ testimonials_?.title || t.sections.testimonialsFallback }}
           </h2>
         </div>
 
@@ -359,7 +366,7 @@ useSeoMeta({
         </div>
         <div v-else class="text-center py-16 text-base-content/40">
           <IconStarFilled class="size-10 mx-auto mb-4 opacity-20" />
-          <p class="font-light">{{ t.sections.reviewsSoon }}</p>
+          <p class="font-light">{{ meta(testimonials_, 'emptySoonText', t.sections.reviewsSoon) }}</p>
         </div>
       </div>
     </section>
@@ -370,7 +377,7 @@ useSeoMeta({
         <div class="text-center mb-16">
           <div class="flex items-center justify-center gap-3 mb-4">
             <div class="h-px w-8 bg-secondary/50" />
-            <span class="text-secondary text-xs font-medium tracking-[0.3em] uppercase">{{ t.sections.getInTouch }}</span>
+            <span class="text-secondary text-xs font-medium tracking-[0.3em] uppercase">{{ meta(contact, 'badgeLabel', t.sections.getInTouch) }}</span>
             <div class="h-px w-8 bg-secondary/50" />
           </div>
           <h2 class="font-serif text-4xl md:text-5xl text-primary font-light tracking-wide">
@@ -386,14 +393,14 @@ useSeoMeta({
             <div class="size-12 rounded-full border border-secondary/30 flex items-center justify-center mx-auto mb-4">
               <IconMapPin class="size-5 text-secondary" />
             </div>
-            <h3 class="font-medium text-primary text-sm tracking-widest uppercase mb-2">{{ t.contact.location }}</h3>
+            <h3 class="font-medium text-primary text-sm tracking-widest uppercase mb-2">{{ meta(contact, 'locationLabel', t.contact.location) }}</h3>
             <p class="text-base-content/60 text-sm font-light leading-relaxed">{{ settings?.address }}</p>
           </div>
           <div v-if="settings?.contactEmail" class="text-center p-6">
             <div class="size-12 rounded-full border border-secondary/30 flex items-center justify-center mx-auto mb-4">
               <IconMail class="size-5 text-secondary" />
             </div>
-            <h3 class="font-medium text-primary text-sm tracking-widest uppercase mb-2">{{ t.contact.email }}</h3>
+            <h3 class="font-medium text-primary text-sm tracking-widest uppercase mb-2">{{ meta(contact, 'emailLabel', t.contact.email) }}</h3>
             <a :href="`mailto:${settings?.contactEmail}`" class="text-base-content/60 text-sm font-light hover:text-secondary transition-colors">
               {{ settings?.contactEmail }}
             </a>
@@ -402,7 +409,7 @@ useSeoMeta({
             <div class="size-12 rounded-full border border-secondary/30 flex items-center justify-center mx-auto mb-4">
               <IconBrandInstagram class="size-5 text-secondary" />
             </div>
-            <h3 class="font-medium text-primary text-sm tracking-widest uppercase mb-2">{{ t.contact.followUs }}</h3>
+            <h3 class="font-medium text-primary text-sm tracking-widest uppercase mb-2">{{ meta(contact, 'socialLabel', t.contact.followUs) }}</h3>
             <div class="flex items-center justify-center gap-4 mt-2">
               <a v-if="settings?.instagramUrl" :href="settings.instagramUrl" target="_blank" rel="noopener" class="text-base-content/40 hover:text-secondary transition-colors">
                 <IconBrandInstagram class="size-5" />

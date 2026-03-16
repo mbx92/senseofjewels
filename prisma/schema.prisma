@@ -39,6 +39,7 @@ model Section {
   subtitle  String?     @db.Text
   body      String?     @db.Text
   image     String?
+  metadata  Json?
   sortOrder Int         @default(0)
   isActive  Boolean     @default(true)
   createdAt DateTime    @default(now())

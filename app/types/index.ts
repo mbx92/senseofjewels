@@ -5,6 +5,7 @@ export interface Section {
   subtitle?: string
   body?: string
   image?: string
+  metadata?: Record<string, string> | null
   sortOrder: number
   isActive: boolean
   createdAt: string

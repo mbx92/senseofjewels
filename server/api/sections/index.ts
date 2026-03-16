@@ -19,6 +19,7 @@ export default defineEventHandler(async (event) => {
         subtitle: body.subtitle || null,
         body: body.body || null,
         image: body.image || null,
+        metadata: body.metadata || null,
         sortOrder: body.sortOrder ?? 0,
         isActive: body.isActive ?? true,
       },

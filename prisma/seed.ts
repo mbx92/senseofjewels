@@ -68,17 +68,100 @@ async function main() {
 
   // Default sections
   const sections = [
-    { slug: 'hero', title: 'Hero', subtitle: 'Discover the magic of Bali', body: 'Exquisite, handcrafted jewelry inspired by the island\'s rich cultural heritage.', sortOrder: 1 },
-    { slug: 'about', title: 'About Us', subtitle: 'Our Story', body: 'Sense of Jewels was born out of a passion for the enchanting beauty and timeless traditions of Bali.', sortOrder: 2 },
-    { slug: 'collections', title: 'Collections', subtitle: 'Explore Our Collection', sortOrder: 3 },
-    { slug: 'sustainability', title: 'Sustainability', subtitle: 'Our Commitment to Sustainability', sortOrder: 4 },
-    { slug: 'contact', title: 'Contact', subtitle: 'We would love to hear from you', sortOrder: 5 },
+    {
+      slug: 'hero',
+      title: 'Handcrafted in Bali',
+      subtitle: 'Jewelry that tells your story',
+      body: 'Exquisite, handcrafted jewelry inspired by the island\'s rich cultural heritage.',
+      sortOrder: 1,
+      metadata: {
+        badgeLabel: 'Handcrafted in Bali',
+        ctaPrimaryText: 'Explore Collections',
+        ctaPrimaryLink: '#collections',
+        ctaSecondaryText: 'Our Story',
+        ctaSecondaryLink: '#about',
+        scrollText: 'Scroll',
+      },
+    },
+    {
+      slug: 'about',
+      title: 'Born from Balinese Tradition',
+      subtitle: 'Our Story',
+      body: 'Sense of Jewels was born out of a passion for the enchanting beauty and timeless traditions of Bali. Each piece is lovingly handcrafted by Balinese artisans using traditional techniques passed down through generations.',
+      sortOrder: 2,
+      metadata: {
+        badgeLabel: 'Our Story',
+        stat1Value: '15+',
+        stat1Label: 'Years of Craft',
+        stat2Value: '500+',
+        stat2Label: 'Unique Designs',
+        stat3Value: '50+',
+        stat3Label: 'Countries',
+      },
+    },
+    {
+      slug: 'collections',
+      title: 'Collections',
+      subtitle: 'Explore Our Collection',
+      sortOrder: 3,
+      metadata: {
+        badgeLabel: 'Our Craft',
+        viewText: 'View Collection',
+        emptySoonText: 'Collections coming soon',
+      },
+    },
+    {
+      slug: 'sustainability',
+      title: 'Sustainably Crafted',
+      subtitle: 'Our Commitment to Sustainability',
+      body: 'We are committed to ethical sourcing, fair trade practices, and supporting the local Balinese artisan community.',
+      sortOrder: 4,
+      metadata: {
+        badgeLabel: 'Our Values',
+        feature1Title: 'Eco-Friendly',
+        feature1Body: 'Recycled metals and sustainable packaging in every order.',
+        feature2Title: 'Fair Trade',
+        feature2Body: 'Artisans are paid fairly and work in safe, dignified conditions.',
+        feature3Title: 'Ethically Sourced',
+        feature3Body: 'Gemstones and metals sourced with full traceability.',
+        feature4Title: 'Handmade',
+        feature4Body: 'Every piece individually crafted — never mass produced.',
+      },
+    },
+    {
+      slug: 'testimonials',
+      title: 'What Our Customers Say',
+      subtitle: null,
+      sortOrder: 5,
+      metadata: {
+        badgeLabel: 'Loved By Many',
+        emptySoonText: 'Reviews coming soon',
+      },
+    },
+    {
+      slug: 'contact',
+      title: 'Visit Our Studio',
+      subtitle: 'We would love to hear from you',
+      sortOrder: 6,
+      metadata: {
+        badgeLabel: 'Get In Touch',
+        locationLabel: 'Location',
+        emailLabel: 'Email',
+        socialLabel: 'Follow Us',
+      },
+    },
   ]
   for (const s of sections) {
     const existing = await prisma.section.findUnique({ where: { slug: s.slug } })
     if (!existing) {
       await prisma.section.create({ data: s })
       console.log(`Section created: ${s.slug}`)
+    } else {
+      // Update metadata for existing sections that don't have it yet
+      if (!existing.metadata) {
+        await prisma.section.update({ where: { slug: s.slug }, data: { metadata: s.metadata } })
+        console.log(`Section metadata updated: ${s.slug}`)
+      }
     }
   }
 

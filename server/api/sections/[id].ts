@@ -23,6 +23,7 @@ export default defineEventHandler(async (event) => {
         subtitle: body.subtitle ?? null,
         body: body.body ?? null,
         image: toRelativeUrl(body.image),
+        metadata: body.metadata ?? null,
         sortOrder: body.sortOrder,
         isActive: body.isActive,
       },
